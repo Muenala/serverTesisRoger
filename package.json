@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server APPR",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/socket.io": "^3.0.2",
+    "bcrypt": "^5.0.1",
+    "connect-multiparty": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs-extra": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3",
+    "node-code-generator": "^1.0.3",
+    "nodemailer": "^6.7.2",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "path": "^0.12.7",
+    "pdfkit-table": "^0.1.85",
+    "socket.io": "^4.4.0",
+    "socketio-jwt": "^4.6.2"
+  }
+}
