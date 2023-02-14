@@ -12,11 +12,33 @@ const getUsuarios = async (req, res) => {
   }
 };
 
-const searchUsername = async (req, res) => {
+const guardar = async (req, res) => {
   try {
-    const { usuario_usuario } = req.body;
-    const usuario = await usuarioModel.findOne({ usuario_usuario });
-    if (usuario.id != null) {
+    const { lenguaGrabacion,
+     lenguaMadre,
+   ciudad,
+    nota,
+    nombres,
+     edad,
+     genero } = req.body;
+     console.log(req.body);
+   let token =   req.header('authorization');
+   token = token.split(' ')[1];
+   const decodedToken = jwt.decode(token, {
+    complete: true
+   });
+   token = decodedToken.payload;
+    const usuario = await usuarioModel.findOne({ _id : token._id });
+    usuario.lenguaGrabacion = lenguaGrabacion;
+    usuario.lenguaMadre = lenguaMadre;
+    usuario.ciudad = ciudad;
+    usuario.nota = nota;
+    usuario.nombres = nombres;
+    usuario.edad = edad;
+    usuario.genero = genero;
+    usuario.save();
+   console.log(usuario);
+    if (usuario._id != null) {
       res.send(true);
     } else {
       res.send(false);
@@ -26,14 +48,23 @@ const searchUsername = async (req, res) => {
   }
 };
 
-const searchEmail = async (req, res) => {
+const getData = async (req, res) => {
   try {
-    const { correo_usuario } = req.body;
-    const usuario = await usuarioModel.findOne({ correo_usuario });
-    if (usuario.id != null) {
-      res.send(true);
+
+
+     let token =   req.header('authorization');
+
+   token = token.split(' ')[1];
+   const decodedToken = jwt.decode(token, {
+    complete: true
+   });
+   token = decodedToken.payload;
+    const usuario = await usuarioModel.findOne({ _id : token._id });
+ 
+    if (usuario._id != null) {
+      res.send(usuario);
     } else {
-      res.send(false);
+      res.send(null);
     }
   } catch (e) {
     res.send("error");
@@ -51,7 +82,32 @@ const getUsuario = async (req, res) => {
   }
 };
 
+const saveAudio = async (req, res, next) => {
+  try {
+    const { audio } = req.files;
+    audio.mv('./uploads/' + audio.name);
+    let token =   req.header('authorization');
+ 
+   token = token.split(' ')[1];
+   const decodedToken = jwt.decode(token, {
+    complete: true
+   });
+   token = decodedToken.payload;
 
+   const usuario = await usuarioModel.findOne({ _id : token._id });
+   usuario.audio = audio.name;
+   usuario.save();
+
+   if (usuario._id != null) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+
+  } catch (e) {
+    res.send("error");
+  }
+};
 
 const createUsuario = async (req, res) => {
   try {
@@ -90,11 +146,15 @@ const loginUsuario = async (req, res) => {
       usuario_usuario,
       contrasenia_usuario
     } = req.body;
+
+
     const usuario = await usuarioModel.findOne({ usuario_usuario });
+  
     const isValid = await bcrypt.compare(contrasenia_usuario, usuario.contrasenia_usuario)
     let token = null;
+
    if(isValid){
-     jwt.sign(
+     token =  jwt.sign(
       { _id: usuario._id, nombre_usuario:usuario.nombre_usuario,usuario_usuario,correo_usuario:usuario.correo_usuario },
       process.env.TOKEN_KEY,
       {
@@ -102,6 +162,7 @@ const loginUsuario = async (req, res) => {
       }
     );
    }
+   console.log(token);
     res.send( token);
   } catch (e) {
     console.log(e);
@@ -159,4 +220,6 @@ const deleteUsuario = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsuarios, getUsuario, searchEmail, searchUsername, createUsuario,loginUsuario, updateUsuario, deleteUsuario };
+
+module.exports = { getUsuarios, getUsuario, 
+  getData,saveAudio, guardar, createUsuario,loginUsuario, updateUsuario, deleteUsuario };

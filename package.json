@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.4.0",
     "fs-extra": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
@@ -29,5 +30,8 @@
     "pdfkit-table": "^0.1.85",
     "socket.io": "^4.4.0",
     "socketio-jwt": "^4.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
