@@ -22,7 +22,7 @@ const usuarioSchema = new mongoose.Schema({
     lenguaGrabacion:{
         type: String
     },
-    lenguaMadre:{
+    lenguaMadr:{
         type: String
     }
     ,

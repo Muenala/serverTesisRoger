@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const { getUsuarios , getUsuario, 
-    createUsuario,loginUsuario,saveAudio, guardar, getData,updateUsuario, deleteUsuario} = require('../controllers/usuario')
+    createUsuario,loginUsuario,saveAudio,obtenerAudios,obtenerVideos,obtenerImagenes,saveVideo,saveImagen, guardar, getData,updateUsuario, deleteUsuario} = require('../controllers/usuario')
 
 router.get('/', getUsuarios)
 
@@ -16,6 +16,11 @@ router.post('/getData', getData)
 
 router.patch('/', updateUsuario)
 router.post('/audio', saveAudio)
+router.post('/audios', obtenerAudios)
+router.post('/videos', obtenerVideos)
+router.post('/imagenes', obtenerImagenes)
+router.post('/video', saveVideo)
+router.post('/imagen', saveImagen)
 
 
 router.delete('/:_id', deleteUsuario)
