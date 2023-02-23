@@ -43,8 +43,8 @@ const getUsuariosAudio = async (req, res) => {
             multimediaAll.forEach(function(part, index) {
               let mu = {};
              mu.url = "https://34.205.54.79/api/usuario/audio/" + part.nombre_archivo
-             mu.title= "Sample 3",
-             mu.cover= "https://i1.sndcdn.com/artworks-000249294066-uow7s0-t500x500.jpg"
+             mu.title= part.nombre_archivo,
+             mu.cover= "https://img.goraymi.com/2020/03/26/cf998b98ec9a0a81c9c5b78942c3bb70_xl.jpg"
               newA.push(mu)
             }, multimediaAll); 
 
