@@ -25,6 +25,13 @@ app.use(express.json());
 //routes
 app.use('/api/', require('./app/routes'))
 
+const path = require('path')
+app.use(express.static(path.join(__dirname, 'public')))
+
+
+app.get('*', function(req, res) {
+  res.sendfile('./public/index.html');
+});
 //connection mongodb
 dbConnect();
 /* http.listen(PORT, () => {
@@ -36,7 +43,3 @@ https.createServer({
 },app).listen(PORT, function(){
  console.log('Servidor https correindo en el puerto 443');
 });
-app.get('/', function(req, res){
-	res.send('Hola, estas en la pagina inicial');
-	console.log('Se recibio una petición get a través de https');
-}); 
