@@ -12,6 +12,156 @@ const getUsuarios = async (req, res) => {
     res.send("error");
   }
 };
+const getAudio = async (req, res) => {
+
+  try {
+    const {
+      nombre_archivo
+    } = req.params;
+    console.log(req.params);
+  res.sendfile(`uploads/${nombre_archivo}`); 
+  } catch (e) {
+    res.send("error");
+  }
+};
+const getUsuariosAudio = async (req, res) => {
+
+  try {
+    let listAll = await usuarioModel.find({});
+    let newList = []
+    var bar = new Promise((resolve, reject) => {
+      listAll.forEach(async (usuario, index, array) => {
+        let user = {};
+        user.usuario = usuario; 
+        let multimediaAll =  await multimediaModel.find({
+            id_usuario: usuario._id,
+            tipo_archivo:"audio"
+          });
+
+          if(multimediaAll!==[]){
+            let newA = []
+            multimediaAll.forEach(function(part, index) {
+              let mu = {};
+             mu.url = "https://34.205.54.79/api/usuario/audio/" + part.nombre_archivo
+             mu.title= "Sample 3",
+             mu.cover= "https://i1.sndcdn.com/artworks-000249294066-uow7s0-t500x500.jpg"
+              newA.push(mu)
+            }, multimediaAll); 
+
+            user.multimediaAll = newA
+
+            newList.push(user)
+          }
+       
+          if (index === array.length -1)  setTimeout(() => {
+            resolve();
+          }, 1000); 
+      });
+  });
+  
+  bar.then(() => {
+      
+      res.send(newList);
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  } catch (e) {
+    res.send("error");
+  }
+};
+const getUsuariosVideo = async (req, res) => {
+
+  try {
+    let listAll = await usuarioModel.find({});
+    let newList = []
+
+
+
+    var bar = new Promise((resolve, reject) => {
+      listAll.forEach(async (usuario, index, array) => {
+        let user = {};
+        user.usuario = usuario; 
+        user.multimediaAll =  await multimediaModel.find({
+            id_usuario: usuario._id,
+            tipo_archivo:"video"
+          });
+
+          if(user.multimediaAll!==[]){
+            
+            console.log(user);
+            newList.push(user)
+          }
+       
+          if (index === array.length -1)  setTimeout(() => {
+            resolve();
+          }, 1000); 
+      });
+  });
+  
+  bar.then(() => {
+      
+      res.send(newList);
+  });
+
+
+  } catch (e) {
+    res.send("error");
+  }
+};
+const getUsuariosImagen = async (req, res) => {
+
+  try {
+    let listAll = await usuarioModel.find({});
+    let newList = []
+
+
+
+    var bar = new Promise((resolve, reject) => {
+      listAll.forEach(async (usuario, index, array) => {
+        let user = {};
+        user.usuario = usuario; 
+        user.multimediaAll =  await multimediaModel.find({
+            id_usuario: usuario._id,
+            tipo_archivo:"imagen"
+          });
+
+          if(user.multimediaAll!==[]){
+           
+          
+            console.log(user);
+            newList.push(user)
+          }
+       
+          if (index === array.length -1)  setTimeout(() => {
+            resolve();
+          }, 1000); 
+      });
+  });
+  
+  bar.then(() => {
+      
+      res.send(newList);
+  });
+
+
+  } catch (e) {
+    res.send("error");
+  }
+};
 
 const guardar = async (req, res) => {
   try {
@@ -396,6 +546,8 @@ module.exports = {
   getData,
   saveAudio,
   obtenerAudios,
+  getAudio,
+  getUsuariosAudio,getUsuariosVideo,getUsuariosImagen,
   obtenerVideos,obtenerImagenes,
   saveVideo,
   saveImagen,

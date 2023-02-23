@@ -1,9 +1,16 @@
 const express = require('express')
 const router = express.Router();
-const { getUsuarios , getUsuario, 
+const { getUsuarios , getUsuario,
+    getAudio, 
+    getUsuariosAudio,getUsuariosVideo,getUsuariosImagen,
     createUsuario,loginUsuario,saveAudio,obtenerAudios,obtenerVideos,obtenerImagenes,saveVideo,saveImagen, guardar, getData,updateUsuario, deleteUsuario} = require('../controllers/usuario')
 
 router.get('/', getUsuarios)
+router.get('/audios', getUsuariosAudio)
+router.get('/videos', getUsuariosVideo)
+router.get('/imagenes', getUsuariosImagen)
+
+router.get('/audio/:nombre_archivo', getAudio)
 
 router.get('/:_id', getUsuario)
 

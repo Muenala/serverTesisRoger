@@ -5,10 +5,10 @@ const cors = require('cors');
 var fs = require('fs');
 var https = require('https');
 const app = express();
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 3000;
 
 
-/* const http = require('http').Server(app); */
+const http = require('http').Server(app);
 var fileupload = require("express-fileupload");
 app.use(fileupload());
 
@@ -39,4 +39,4 @@ https.createServer({
 app.get('/', function(req, res){
 	res.send('Hola, estas en la pagina inicial');
 	console.log('Se recibio una petición get a través de https');
-});
+}); 
