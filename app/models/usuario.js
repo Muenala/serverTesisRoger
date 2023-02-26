@@ -51,6 +51,9 @@ const usuarioSchema = new mongoose.Schema({
     foto:{
         type: String
     },
+    traduccionTexto:{
+        type: String
+    },
 },{
     timestamps:true,
     versionKey: false

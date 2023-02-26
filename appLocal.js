@@ -5,33 +5,42 @@ const cors = require('cors');
 var fs = require('fs');
 var https = require('https');
 const app = express();
-const PORT = process.env.PORT || 3000;
-var fileupload = require("express-fileupload");
+const PORT =  3000;
 
-//confoiguracion
+
+const http = require('http').Server(app);
+var fileupload = require("express-fileupload");
+app.use(fileupload());
+
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
+
 app.use(cors());
 app.use(express.json());
-app.use(fileupload());
+
 //routes
 app.use('/api/', require('./app/routes'))
-/* Ruta para enviar pagina web */
+
 const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
+
+
 app.get('*', function(req, res) {
   res.sendfile('./public/index.html');
 });
-//Conexión base de datos
+//connection mongodb
 dbConnect();
-//servidor certificado
-https.createServer({
+http.listen(PORT, () => {
+  console.log('nodejs app run ' + PORT)
+})
+/* https.createServer({
   cert: fs.readFileSync('mi_certificado.crt'),
   key: fs.readFileSync('mi_certificado.key')
 },app).listen(PORT, function(){
  console.log('Servidor https correindo en el puerto 443');
 });
+ */
