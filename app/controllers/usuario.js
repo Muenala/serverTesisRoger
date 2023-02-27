@@ -326,8 +326,9 @@ const saveAudio = async (req, res, next) => {
 };
 const obtenerAudios = async (req, res, next) => {
   try {
-
+    console.log("token");
     let token = req.header('authorization');
+    console.log(token);
     token = token.split(' ')[1];
     const decodedToken = jwt.decode(token, {
       complete: true
