@@ -333,12 +333,12 @@ const obtenerAudios = async (req, res, next) => {
       complete: true
     });
     token = decodedToken.payload;
-
+    console.log(token);
     const multimediaAll = await multimediaModel.find({
       id_usuario: token._id,
       tipo_archivo: "audio"
     });
-
+    console.log(multimediaAll);
     res.send({
       multimediaAll
     });
