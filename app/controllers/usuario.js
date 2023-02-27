@@ -66,6 +66,70 @@ const textoTraduccir = async (req, res, next) => {
     res.send("error");
   }
 };
+const audioTraduccirVideo = async (req, res, next) => {
+  try {
+    const {
+      audio
+    } = req.files;
+    const {
+      _id
+    } = req.body;
+
+
+
+    let date = new Date();
+
+    audio.mv('./uploads/' + (date.getTime())  + ".webm");
+    const multimedia = await multimediaModel.create({
+      id_usuario: _id,
+      nombre_archivo: (date.getTime()) + ".webm",
+      tipo_archivo: "audioTraducidoVideo",
+    });
+
+    
+    const video = await multimediaModel.findOne({
+      _id
+    });
+    video.audioTraduccir =  (date.getTime())  + ".webm";
+    video.save();
+
+
+
+    multimedia.save();
+    const multimediaAll = await multimediaModel.find({});
+    console.log(multimediaAll);
+    if (multimedia._id != null) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+
+  } catch (e) {
+    res.send("error");
+  }
+};
+const textoTraduccirVideo = async (req, res, next) => {
+  try {
+
+    const {
+      _id,texto
+    } = req.body;
+    console.log(req.body);
+    const video = await multimediaModel.findOne({
+      _id
+    });
+    video.traduccionTexto = texto;
+    video.save();
+    if (usuario._id != null) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+
+  } catch (e) {
+    res.send("error");
+  }
+};
 
 const getAudio = async (req, res) => {
   try {
@@ -599,6 +663,7 @@ module.exports = {
   getUsuario,
   getData,
   saveAudio,
+  audioTraduccirVideo,textoTraduccirVideo,
   audioTraduccir,
   textoTraduccir,
   obtenerAudios,

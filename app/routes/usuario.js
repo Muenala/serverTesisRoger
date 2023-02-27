@@ -4,11 +4,14 @@ const { getUsuarios , getUsuario,
     getAudio, 
     audioTraduccir,textoTraduccir,
     getUsuariosAudio,getUsuariosVideo,getUsuariosImagen,
+    audioTraduccirVideo,textoTraduccirVideo,
     createUsuario,loginUsuario,saveAudio,obtenerAudios,obtenerVideos,obtenerImagenes,saveVideo,saveImagen, guardar, getData,updateUsuario, deleteUsuario} = require('../controllers/usuario')
 
 router.get('/', getUsuarios)
 router.post('/audioTraduccir', audioTraduccir)
 router.post('/textoTraduccir', textoTraduccir)
+router.post('/audioTraduccirVideo', audioTraduccirVideo)
+router.post('/textoTraduccirVideo', textoTraduccirVideo)
 router.get('/audios', getUsuariosAudio)
 router.get('/videos', getUsuariosVideo)
 router.get('/imagenes', getUsuariosImagen)

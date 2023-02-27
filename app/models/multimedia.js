@@ -12,6 +12,12 @@ const multimediaSchema = new mongoose.Schema({
     tipo_archivo:{
         type: String,
         required: true
+    },
+    audioTraduccir:{
+        type: String
+    },
+    textoTraducido:{
+        type: String
     }
 },{
     timestamps:true,
