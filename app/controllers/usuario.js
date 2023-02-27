@@ -530,7 +530,7 @@ const loginUsuario = async (req, res) => {
     console.log(token);
     res.send(token);
   } catch (e) {
-    res.send("error");
+    res.status(400).end();
   }
 };
 
