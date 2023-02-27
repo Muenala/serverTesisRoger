@@ -115,11 +115,14 @@ const textoTraduccirVideo = async (req, res, next) => {
       _id,texto
     } = req.body;
     console.log(req.body);
+    
     const video = await multimediaModel.findOne({
       _id
     });
-    video.traduccionTexto = texto;
+
+    video.textoTraducido = texto;
     video.save();
+    console.log(video);
     if (usuario._id != null) {
       res.send(true);
     } else {
