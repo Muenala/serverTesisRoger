@@ -20,6 +20,10 @@ app.use(express.json());
 app.use(fileupload());
 //routes
 app.use('/api/', require('./app/routes'))
+app.use('/download', function(req, res){
+  const file = `${__dirname}/tsafiapp.apk`;
+  res.download(file); // Set disposition and send it.
+});
 /* Ruta para enviar pagina web */
 const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))

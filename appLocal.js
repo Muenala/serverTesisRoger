@@ -27,7 +27,10 @@ app.use('/api/', require('./app/routes'))
 
 const path = require('path')
 app.use(express.static(path.join(__dirname, 'public')))
-
+app.use('/download', function(req, res){
+  const file = `${__dirname}/tsafiapp.apk`;
+  res.download(file); // Set disposition and send it.
+});
 
 app.get('*', function(req, res) {
   res.sendfile('./public/index.html');
